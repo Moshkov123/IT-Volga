@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/model_ meal.dart';
+import '../../model/model_meal.dart';
 import 'reception_item.dart';
 
 class ReceptionList extends StatelessWidget {
@@ -17,9 +17,10 @@ class ReceptionList extends StatelessWidget {
         itemBuilder: (context, index) {
           final meal = indexList[index];
           return ReceptionItem(
+            id: meal.id!, // Передаем id приема пищи
             title: meal.title,
             img: meal.urlImg,
-            calories: meal.calories,
+            calories: meal.calories ?? 0,
           );
         },
       ),

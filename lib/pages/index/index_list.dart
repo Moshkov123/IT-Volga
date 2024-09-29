@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'index_item.dart'; // Убедитесь, что путь к файлу правильный
-import 'package:itvolga/model/model_week.dart'; // Импортируем класс Day
+import 'package:itvolga/model/model_week.dart';
+import 'index_item.dart';
 
 class IndexList extends StatelessWidget {
   final List<Day> indexList;
@@ -9,20 +9,16 @@ class IndexList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0), // Добавляем верхний отступ
-      child: ListView.separated(
-        itemCount: indexList.length,
-        separatorBuilder: (context, index) => SizedBox(height: 10), // Добавляем интервал между элементами
-        itemBuilder: (context, index) {
-          final day = indexList[index];
-          return IndexItem(
-            day: day.day,
-            calories: day.calories,
-            meals: day.meals,
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: indexList.length,
+      itemBuilder: (context, index) {
+        return IndexItem(
+          id: indexList[index].id, // Передаем id
+          day: indexList[index].day,
+          calories: indexList[index].calories,
+          meals: indexList[index].meals,
+        );
+      },
     );
   }
 }

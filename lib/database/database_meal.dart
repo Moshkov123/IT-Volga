@@ -1,6 +1,6 @@
-import 'package:itvolga/model/model_%20meal.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:itvolga/model/model_meal.dart'; // Исправленный путь
 
 class MealDatabaseHelper {
   static final MealDatabaseHelper _instance = MealDatabaseHelper._internal();
@@ -26,23 +26,22 @@ class MealDatabaseHelper {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE meals(
-        id INTEGER PRIMARY KEY,
-        title TEXT,
-        url_img TEXT,
-        calories INTEGER,
-        day_id INTEGER
-      )
-    ''');
+    CREATE TABLE meals(
+      id INTEGER PRIMARY KEY,
+      title TEXT NOT NULL,
+      url_img TEXT NOT NULL,
+      calories INTEGER NOT NULL,
+      day_id INTEGER NOT NULL
+    )
+  ''');
 
-
-  await db.insert('meals', {
-  'title': 'Завтрак',
-  'url_img': '\assets\img_user\breakfast.jpg',
-  'calories': 500,
-  'day_id': 2,
-  });
-}
+    await db.insert('meals', {
+      'title': 'Завтрак',
+      'url_img': 'assets/img_user/breakfast.jpg',
+      'calories': 500,
+      'day_id': 1,
+    });
+  }
 
   Future<List<Meal>> getMealsForDay(int dayId) async {
     final db = await database;

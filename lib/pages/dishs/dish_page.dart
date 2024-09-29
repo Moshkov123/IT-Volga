@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:itvolga/pages/dishs/dish_list.dart';
 import 'package:itvolga/widgets/oval_button.dart';
+import 'package:itvolga/model/model_dish.dart';
+import '../../database/database_dish.dart';
 
 class DishPage extends StatelessWidget {
   const DishPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Создаем список данных для DishList
-    List<Map<String, dynamic>> dishList = [
-      {'title': 'Item 1', 'calories': 150, 'img': 'https://via.placeholder.com/100x100'},
-      {'title': 'Item 2', 'calories': 250, 'img': 'https://via.placeholder.com/100x100'},
-      // Добавьте другие элементы по мере необходимости
-    ];
+    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    int mealId = args?['mealId'] ?? 1; // Задаем значение по умолчанию
 
     return Scaffold(
       appBar: AppBar(
@@ -20,16 +19,39 @@ class DishPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: const Color(0xFF28A745),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: DishList(indexList: dishList),
-          ),
-          OvalButton(text: 'Добавить',
-            onPressed: () {
-            print('Кнопка нажата');
-          },)
-        ],
+      body: FutureBuilder<List<Dish>>(
+        future: DishDatabase().getDishesForMeal(mealId),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Ошибка: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('Нет данных'));
+          } else {
+            List<Map<String, dynamic>> dishList = snapshot.data!.map((dish) {
+              return {
+                'title': dish.name,
+                'img': dish.imageUrl,
+                'calories': dish.calories ?? 0, // Добавляем значение по умолчанию
+              };
+            }).toList();
+
+            return Column(
+              children: [
+                Expanded(
+                  child: DishList(indexList: dishList),
+                ),
+                OvalButton(
+                  text: 'Добавить',
+                  onPressed: () {
+                    print('Кнопка нажата');
+                  },
+                ),
+              ],
+            );
+          }
+        },
       ),
     );
   }

@@ -1,16 +1,62 @@
 # itvolga
 
-A new Flutter project.
+## Описание проекта
 
-## Getting Started
+Этот проект представляет собой мобильное приложение, разработанное на Flutter, которое позволяет пользователям вести дневник питания и составлять персональное меню на каждый день. Приложение предоставляет удобный интерфейс для отслеживания потребляемых продуктов, расчета калорий и создания индивидуальных планов питания.
 
-This project is a starting point for a Flutter application.
+## Основные функции
 
-A few resources to get you started if this is your first Flutter project:
+- **Ведение дневника питания**: Пользователи могут добавлять информацию о приеме пищи, включая название блюда, изображение и количество калорий.
+- **Составление меню**: Приложение позволяет создавать персональное меню на каждый день, включая завтрак, обед, ужин и перекусы.
+- **Отслеживание калорий**: Пользователи могут отслеживать общее количество потребляемых калорий за день.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Технологии
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: Фреймворк для разработки мобильных приложений, который позволяет создавать приложения для iOS и Android с использованием единого кода.
+- **Dart**: Язык программирования, используемый для разработки приложений на Flutter.
+- **SQLite**: База данных, используемая для локального хранения данных.
+
+## Установка
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/Moshkov123/IT-Volga.git
+   ```
+
+2. Перейдите в директорию проекта:
+   ```bash
+   cd IT-Volga
+   ```
+
+3. Установите зависимости:
+   ```bash
+   flutter pub get
+   ```
+
+4. Запустите приложение:
+   ```bash
+   flutter run
+   ```
+
+## Лицензия
+
+Этот проект лицензирован под BSD-3 Clause. Подробности можно найти в файле [LICENSE](LICENSE).
+
+## Авторы
+
+- **Михаил Мошков**
+    - GitHub: [Moshkov123](https://github.com/Moshkov123)
+    - Email: [moshkovmisha05@gmail.com](mailto:moshkovmisha05@gmail.com)
+
+## Благодарности
+
+- Спасибо сообществу Flutter за отличную документацию и ресурсы.
+- Спасибо всем, кто внес свой вклад в этот проект.
+
+## Контакты
+
+Если у вас есть вопросы или предложения, пожалуйста, свяжитесь со мной по адресу [moshkovmisha05@gmail.com](mailto:moshkovmisha05@gmail.com).
+
+---
+
+**Важно**: Замените `yourusername`, `your.email@example.com` и другие заполнители на актуальные данные перед использованием этого README.

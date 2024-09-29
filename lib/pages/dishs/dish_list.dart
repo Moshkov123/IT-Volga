@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dish_item.dart'; // Убедитесь, что путь к файлу правильный
+import 'package:itvolga/pages/dishs/dish_item.dart';
 
 class DishList extends StatelessWidget {
   final List<Map<String, dynamic>> indexList;
@@ -8,19 +8,16 @@ class DishList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0), // Добавляем верхний отступ
-      child: ListView.separated(
-        itemCount: indexList.length,
-        separatorBuilder: (context, index) => SizedBox(height: 10), // Добавляем интервал между элементами
-        itemBuilder: (context, index) {
-          return DishItem(
-            title: indexList[index]['title'],
-            img: indexList[index]['img'],
-            calories: indexList[index]['calories'],
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: indexList.length,
+      itemBuilder: (context, index) {
+        final item = indexList[index];
+        return DishItem(
+          title: item['title'],
+          img: item['img'],
+          calories: item['calories'] ?? 0, // Добавляем значение по умолчанию
+        );
+      },
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 class IndexItem extends StatelessWidget {
+  final int id; // Добавляем id
   final String day;
   final int calories;
   final int meals;
 
-  const IndexItem({super.key, required this.day, required this.calories, required this.meals});
+  const IndexItem({super.key, required this.id, required this.day, required this.calories, required this.meals});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class IndexItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           '/reception',
-          arguments: {'day': day, 'calories': calories, 'meals': meals},
+          arguments: {'day': day, 'dayId': id}, // Передаем id
         );
       },
       child: Container(
@@ -40,7 +42,7 @@ class IndexItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 95,
+                width: 110,
                 height: 20,
                 child: Text(
                   day,

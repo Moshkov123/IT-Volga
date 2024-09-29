@@ -1,19 +1,18 @@
 class Meal {
-  int id;
-  String title;
-  String urlImg;
-  int calories;
-  int dayId;
+  final int? id;
+  final String title;
+  final String urlImg;
+  final int? calories;
+  final int dayId;
 
   Meal({
-    required this.id,
+    this.id,
     required this.title,
     required this.urlImg,
-    required this.calories,
+    this.calories,
     required this.dayId,
   });
 
-  // Преобразование объекта в Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -24,7 +23,6 @@ class Meal {
     };
   }
 
-  // Преобразование Map в объект
   factory Meal.fromMap(Map<String, dynamic> map) {
     return Meal(
       id: map['id'],

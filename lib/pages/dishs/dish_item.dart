@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itvolga/widgets/action_button.dart';
 
-
 class DishItem extends StatelessWidget {
   final String title;
   final String img;
@@ -80,7 +79,7 @@ class DishItem extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(img),
+                  image: AssetImage(img), // Исправлено на AssetImage
                   fit: BoxFit.cover,
                 ),
               ),
