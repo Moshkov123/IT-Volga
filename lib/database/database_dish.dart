@@ -39,13 +39,13 @@ class DishDatabase {
       'name': 'Блюдо 1',
       'meal_id': 1,
       'image_url': 'assets/img_user/breakfast.jpg',
-      'calories': 300, // Добавляем калории
+      'calories': 300,
     });
     await db.insert('dishes', {
       'name': 'Блюдо 2',
       'meal_id': 1,
       'image_url': 'assets/img_user/breakfast.jpg',
-      'calories': 400, // Добавляем калории
+      'calories': 400,
     });
   }
 

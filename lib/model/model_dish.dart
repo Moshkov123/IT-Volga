@@ -10,7 +10,7 @@ class Dish {
     required this.name,
     required this.mealId,
     required this.imageUrl,
-    this.calories, // Изменено на int?
+    this.calories,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,7 +19,7 @@ class Dish {
       'name': name,
       'meal_id': mealId,
       'image_url': imageUrl,
-      'calories': calories, // Изменено на int?
+      'calories': calories,
     };
   }
 
@@ -29,7 +29,7 @@ class Dish {
       name: map['name'],
       mealId: map['meal_id'],
       imageUrl: map['image_url'],
-      calories: map['calories'], // Изменено на int?
+      calories: map['calories'],
     );
   }
 }

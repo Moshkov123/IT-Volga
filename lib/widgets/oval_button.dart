@@ -20,16 +20,16 @@ class OvalButton extends StatelessWidget {
         decoration: ShapeDecoration(
           color: const Color(0xFF4CAF50),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25), // Большой радиус скругления для создания овала
+            borderRadius: BorderRadius.circular(25),
           ),
         ),
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent, // Прозрачный фон для кнопки
-            shadowColor: Colors.transparent, // Прозрачная тень
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25), // Большой радиус скругления для создания овала
+              borderRadius: BorderRadius.circular(25),
             ),
           ),
           child: Center(

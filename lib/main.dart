@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // Используем home вместо маршрута '/'
       home: Scaffold(
         appBar: AppBar(
           title: const Center(
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
           backgroundColor: const Color(0xFF28A745),
         ),
-        body: const IndexPage(), // По умолчанию открывается IndexPage
+        body: const IndexPage(),
       ),
       routes: {
         '/reception': (context) => const ReceptionPage(),

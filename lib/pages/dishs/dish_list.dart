@@ -15,7 +15,7 @@ class DishList extends StatelessWidget {
         return DishItem(
           title: item['title'],
           img: item['img'],
-          calories: item['calories'] ?? 0, // Добавляем значение по умолчанию
+          calories: item['calories'] ?? 0,
         );
       },
     );

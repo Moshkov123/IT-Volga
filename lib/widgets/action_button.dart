@@ -17,7 +17,7 @@ class ActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(10), // Добавляем отступ 10 пикселей
+        padding: const EdgeInsets.all(10),
         child: Container(
           width: 80,
           height: 40,

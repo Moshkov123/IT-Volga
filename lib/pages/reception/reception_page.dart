@@ -12,7 +12,7 @@ class ReceptionPage extends StatelessWidget {
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     String day = args?['day'] ?? 'No day';
-    int dayId = args?['dayId'] ?? 0; // Задаем значение по умолчанию
+    int dayId = args?['dayId'] ?? 0;
 
     return Scaffold(
       appBar: AppBar(

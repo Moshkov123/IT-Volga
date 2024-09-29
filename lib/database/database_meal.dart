@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:itvolga/model/model_meal.dart'; // Исправленный путь
+import 'package:itvolga/model/model_meal.dart';
 
 class MealDatabaseHelper {
   static final MealDatabaseHelper _instance = MealDatabaseHelper._internal();

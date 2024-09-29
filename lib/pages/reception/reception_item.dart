@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ReceptionItem extends StatelessWidget {
-  final int id; // Добавляем параметр id
+  final int id;
   final String title;
   final String img;
   final int calories;
 
   const ReceptionItem({
     super.key,
-    required this.id, // Добавляем параметр id
+    required this.id,
     required this.title,
     required this.img,
     required this.calories,

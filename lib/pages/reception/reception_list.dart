@@ -17,7 +17,7 @@ class ReceptionList extends StatelessWidget {
         itemBuilder: (context, index) {
           final meal = indexList[index];
           return ReceptionItem(
-            id: meal.id!, // Передаем id приема пищи
+            id: meal.id!,
             title: meal.title,
             img: meal.urlImg,
             calories: meal.calories ?? 0,
