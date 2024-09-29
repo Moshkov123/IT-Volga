@@ -40,7 +40,7 @@
 
 ## Лицензия
 
-Этот проект лицензирован под BSD-3 Clause. Подробности можно найти в файле [LICENSE](LICENSE).
+Этот проект лицензирован под BSD-3 Clause. Подробности можно найти в файле [LICENSE](https://spdx.org/licenses/BSD-3-Clause.html).
 
 ## Авторы
 
