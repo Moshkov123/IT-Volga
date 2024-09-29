@@ -57,6 +57,3 @@
 
 Если у вас есть вопросы или предложения, пожалуйста, свяжитесь со мной по адресу [moshkovmisha05@gmail.com](mailto:moshkovmisha05@gmail.com).
 
----
-
-**Важно**: Замените `yourusername`, `your.email@example.com` и другие заполнители на актуальные данные перед использованием этого README.
