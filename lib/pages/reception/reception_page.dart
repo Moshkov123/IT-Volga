@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itvolga/pages/form_reception/form_reception_page.dart';
 import 'package:itvolga/widgets/oval_button.dart';
 import '../../database/database_meal.dart';
 import '../../model/model_meal.dart';
@@ -41,7 +42,13 @@ class ReceptionPage extends StatelessWidget {
           OvalButton(
             text: 'Добавить',
             onPressed: () {
-              print('Кнопка нажата');
+              // Вызываем форму для добавления нового приема пищи
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormReceptionPage(dayId: dayId),
+                ),
+              );
             },
           ),
         ],

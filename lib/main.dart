@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itvolga/pages/dishs/dish_page.dart';
 import 'package:itvolga/pages/index/index_page.dart';
-import 'package:itvolga/pages/reception/reception_page.dart'; // Добавьте этот импорт
+import 'package:itvolga/pages/reception/reception_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -55,8 +55,32 @@ class MealDatabaseHelper {
     });
   }
 
+  Future<Meal> getMealById(int id) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'meals',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (maps.isNotEmpty) {
+      return Meal.fromMap(maps.first);
+    } else {
+      throw Exception('Meal not found');
+    }
+  }
+
   Future<void> insertMeal(Meal meal) async {
     final db = await database;
     await db.insert('meals', meal.toMap());
+  }
+
+  Future<void> updateMeal(Meal meal) async {
+    final db = await database;
+    await db.update(
+      'meals',
+      meal.toMap(),
+      where: 'id = ?',
+      whereArgs: [meal.id],
+    );
   }
 }

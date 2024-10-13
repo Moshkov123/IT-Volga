@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:itvolga/pages/form_reception/Editform_reception_page.dart';
+import 'dart:io';
+import 'package:itvolga/pages/form_reception/form_reception_page.dart';
 
 class ReceptionItem extends StatelessWidget {
   final int id;
@@ -88,7 +91,7 @@ class ReceptionItem extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(img),
+                    image: _getImageProvider(img),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -103,7 +106,12 @@ class ReceptionItem extends StatelessWidget {
                     text: 'Изменить',
                     color: Color(0xFF4CAF50),
                     onPressed: () {
-                      print('Изменить нажата');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditReceptionPage(mealId: id),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(height: 10),
@@ -121,6 +129,14 @@ class ReceptionItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ImageProvider _getImageProvider(String imagePath) {
+    if (imagePath.startsWith('assets/')) {
+      return AssetImage(imagePath);
+    } else {
+      return FileImage(File(imagePath));
+    }
   }
 }
 

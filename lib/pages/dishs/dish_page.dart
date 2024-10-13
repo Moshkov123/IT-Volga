@@ -19,39 +19,42 @@ class DishPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: const Color(0xFF28A745),
       ),
-      body: FutureBuilder<List<Dish>>(
-        future: DishDatabase().getDishesForMeal(mealId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Ошибка: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Нет данных'));
-          } else {
-            List<Map<String, dynamic>> dishList = snapshot.data!.map((dish) {
-              return {
-                'title': dish.name,
-                'img': dish.imageUrl,
-                'calories': dish.calories ?? 0, // Добавляем значение по умолчанию
-              };
-            }).toList();
+      body: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder<List<Dish>>(
+              future: DishDatabase().getDishesForMeal(mealId),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Ошибка: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(child: Text('Нет данных'));
+                } else {
+                  List<Map<String, dynamic>> dishList = snapshot.data!.map((dish) {
+                    return {
+                      'title': dish.name,
+                      'img': dish.imageUrl,
+                      'calories': dish.calories ?? 0, // Добавляем значение по умолчанию
+                    };
+                  }).toList();
 
-            return Column(
-              children: [
-                Expanded(
-                  child: DishList(indexList: dishList),
-                ),
-                OvalButton(
-                  text: 'Добавить',
-                  onPressed: () {
-                    print('Кнопка нажата');
-                  },
-                ),
-              ],
-            );
-          }
-        },
+                  return DishList(indexList: dishList);
+                }
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: OvalButton(
+              text: 'Добавить',
+              onPressed: () {
+                print('Кнопка нажата');
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
