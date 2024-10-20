@@ -65,4 +65,23 @@ class DishDatabase {
     final db = await database;
     await db.insert('dishes', dish.toMap());
   }
+
+  Future<void> updateDish(Dish dish) async {
+    final db = await database;
+    await db.update(
+      'dishes',
+      dish.toMap(),
+      where: 'id = ?',
+      whereArgs: [dish.id],
+    );
+  }
+
+  Future<void> deleteDish(int id) async {
+    final db = await database;
+    await db.delete(
+      'dishes',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }

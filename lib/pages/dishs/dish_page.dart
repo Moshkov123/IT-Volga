@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itvolga/pages/dishs/dish_list.dart';
+import 'package:itvolga/pages/form_dish/form_dish_page.dart';
 import 'package:itvolga/widgets/oval_button.dart';
 import 'package:itvolga/model/model_dish.dart';
 import '../../database/database_dish.dart';
@@ -9,7 +10,8 @@ class DishPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     int mealId = args?['mealId'] ?? 1; // Задаем значение по умолчанию
 
@@ -32,15 +34,9 @@ class DishPage extends StatelessWidget {
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Text('Нет данных'));
                 } else {
-                  List<Map<String, dynamic>> dishList = snapshot.data!.map((dish) {
-                    return {
-                      'title': dish.name,
-                      'img': dish.imageUrl,
-                      'calories': dish.calories ?? 0, // Добавляем значение по умолчанию
-                    };
-                  }).toList();
-
-                  return DishList(indexList: dishList);
+                  return DishList(
+                      indexList:
+                          snapshot.data!); // Pass the list of Dish objects
                 }
               },
             ),
@@ -50,7 +46,13 @@ class DishPage extends StatelessWidget {
             child: OvalButton(
               text: 'Добавить',
               onPressed: () {
-                print('Кнопка нажата');
+                // Вызываем форму для добавления нового приема пищи
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FormDishPage(mealId: mealId),
+                  ),
+                );
               },
             ),
           ),

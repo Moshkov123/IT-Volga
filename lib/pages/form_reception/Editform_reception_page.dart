@@ -21,6 +21,7 @@ class _EditReceptionPageState extends State<EditReceptionPage> {
   final _titleController = TextEditingController();
   File? _image;
   Meal? _meal;
+  int? _calories; // Добавляем переменную для хранения калорий
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _EditReceptionPageState extends State<EditReceptionPage> {
       _meal = meal;
       _titleController.text = meal.title;
       _image = meal.urlImg != null ? File(meal.urlImg!) : null;
+      _calories = meal.calories; // Загружаем текущее значение калорий
     });
   }
 
@@ -85,7 +87,8 @@ class _EditReceptionPageState extends State<EditReceptionPage> {
                     children: [
                       TextFormField(
                         controller: _titleController,
-                        decoration: const InputDecoration(labelText: 'Название'),
+                        decoration:
+                            const InputDecoration(labelText: 'Название'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Пожалуйста, введите название';
@@ -132,6 +135,7 @@ class _EditReceptionPageState extends State<EditReceptionPage> {
                     title: _titleController.text,
                     urlImg: imagePath,
                     dayId: _meal!.dayId,
+                    calories: _calories!, // Используем текущее значение калорий
                   );
 
                   // Обновляем прием пищи в базе данных

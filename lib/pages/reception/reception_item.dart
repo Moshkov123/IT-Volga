@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:itvolga/pages/form_reception/Editform_reception_page.dart';
 import 'dart:io';
+import 'package:itvolga/pages/form_reception/Editform_reception_page.dart';
 import 'package:itvolga/pages/form_reception/form_reception_page.dart';
+import 'package:itvolga/database/database_meal.dart';
+import 'package:itvolga/widgets/action_button.dart';
 
 class ReceptionItem extends StatelessWidget {
   final int id;
   final String title;
   final String img;
   final int calories;
+  final VoidCallback onDelete;
 
   const ReceptionItem({
     super.key,
@@ -15,6 +18,7 @@ class ReceptionItem extends StatelessWidget {
     required this.title,
     required this.img,
     required this.calories,
+    required this.onDelete,
   });
 
   @override
@@ -118,9 +122,7 @@ class ReceptionItem extends StatelessWidget {
                   ActionButton(
                     text: 'Удалить',
                     color: Color(0xFFF24E1E),
-                    onPressed: () {
-                      print('Удалить нажата');
-                    },
+                    onPressed: onDelete,
                   ),
                 ],
               ),
@@ -137,32 +139,5 @@ class ReceptionItem extends StatelessWidget {
     } else {
       return FileImage(File(imagePath));
     }
-  }
-}
-
-class ActionButton extends StatelessWidget {
-  final String text;
-  final Color color;
-  final VoidCallback onPressed;
-
-  const ActionButton({
-    super.key,
-    required this.text,
-    required this.color,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-      child: Text(text),
-    );
   }
 }

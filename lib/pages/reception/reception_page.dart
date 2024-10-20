@@ -10,7 +10,8 @@ class ReceptionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     String day = args?['day'] ?? 'No day';
     int dayId = args?['dayId'] ?? 0;
@@ -32,9 +33,10 @@ class ReceptionPage extends StatelessWidget {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('Добавте, пожалуйста приемы пиши.'));
+                  return Center(
+                      child: Text('Добавте, пожалуйста приемы пиши.'));
                 } else {
-                  return ReceptionList(indexList: snapshot.data!);
+                  return ReceptionList(meals: snapshot.data!);
                 }
               },
             ),
@@ -42,7 +44,6 @@ class ReceptionPage extends StatelessWidget {
           OvalButton(
             text: 'Добавить',
             onPressed: () {
-              // Вызываем форму для добавления нового приема пищи
               Navigator.push(
                 context,
                 MaterialPageRoute(

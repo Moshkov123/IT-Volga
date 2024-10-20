@@ -1,6 +1,9 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:itvolga/model/model_meal.dart';
+import 'package:itvolga/model/model_dish.dart';
+import 'dart:io';
+import 'package:itvolga/database/database_dish.dart'; // Импортируем класс DishDatabase
 
 class MealDatabaseHelper {
   static final MealDatabaseHelper _instance = MealDatabaseHelper._internal();
@@ -81,6 +84,51 @@ class MealDatabaseHelper {
       meal.toMap(),
       where: 'id = ?',
       whereArgs: [meal.id],
+    );
+  }
+
+  Future<void> deleteMeal(int id) async {
+    final db = await database;
+    await db.delete(
+      'meals',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> deleteMealAndDishes(int mealId) async {
+    final db = await database;
+    final dishDb =
+        await DishDatabase().database; // Получаем доступ к базе данных блюд
+
+    // Get all dishes associated with the meal
+    final List<Map<String, dynamic>> dishMaps = await dishDb.query(
+      'dishes',
+      where: 'meal_id = ?',
+      whereArgs: [mealId],
+    );
+
+    // Delete each dish and its associated image
+    for (var dishMap in dishMaps) {
+      final dish = Dish.fromMap(dishMap);
+      if (!dish.imageUrl.startsWith('assets/img_user/breakfast.jpg')) {
+        final file = File(dish.imageUrl);
+        if (await file.exists()) {
+          await file.delete();
+        }
+      }
+      await dishDb.delete(
+        'dishes',
+        where: 'id = ?',
+        whereArgs: [dish.id],
+      );
+    }
+
+    // Delete the meal
+    await db.delete(
+      'meals',
+      where: 'id = ?',
+      whereArgs: [mealId],
     );
   }
 }

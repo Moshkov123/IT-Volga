@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:itvolga/model/model_dish.dart';
 import 'package:itvolga/widgets/oval_button.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import '../../database/database_meal.dart';
-import '../../model/model_meal.dart';
+import '../../database/database_dish.dart';
 
-class FormReceptionPage extends StatefulWidget {
-  final int dayId;
+class FormDishPage extends StatefulWidget {
+  final int mealId;
 
-  const FormReceptionPage({super.key, required this.dayId});
+  const FormDishPage({super.key, required this.mealId});
 
   @override
-  _FormReceptionPageState createState() => _FormReceptionPageState();
+  _FormDishPagePageState createState() => _FormDishPagePageState();
 }
 
-class _FormReceptionPageState extends State<FormReceptionPage> {
+class _FormDishPagePageState extends State<FormDishPage> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
+  final _caloriesController = TextEditingController();
   File? _image;
 
   Future<void> _pickImage() async {
@@ -52,7 +53,7 @@ class _FormReceptionPageState extends State<FormReceptionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Добавить прием пищи'),
+        title: const Text('Добавить блюдо'),
         centerTitle: true,
         backgroundColor: const Color(0xFF28A745),
       ),
@@ -74,6 +75,18 @@ class _FormReceptionPageState extends State<FormReceptionPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Пожалуйста, введите название';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _caloriesController,
+                        decoration: const InputDecoration(labelText: 'Калории'),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Пожалуйста, введите количество калорий';
                           }
                           return null;
                         },
@@ -111,19 +124,19 @@ class _FormReceptionPageState extends State<FormReceptionPage> {
                     imagePath = 'assets/img_user/breakfast.jpg';
                   }
 
-                  // Создаем новый прием пищи
-                  Meal newMeal = Meal(
-                    title: _titleController.text,
-                    urlImg: imagePath,
-                    calories: 0,
-                    dayId: widget.dayId,
+                  // Создаем новое блюдо
+                  Dish newDish = Dish(
+                    name: _titleController.text,
+                    mealId: widget.mealId,
+                    imageUrl: imagePath,
+                    calories: int.tryParse(_caloriesController.text) ?? 0,
                   );
 
-                  // Добавляем прием пищи в базу данных
-                  MealDatabaseHelper().insertMeal(newMeal).then((_) {
-                    // Возвращаемся на предыдущую страницу
-                    Navigator.pop(context);
-                  });
+                  // Добавляем блюдо в базу данных
+                  await DishDatabase().insertDish(newDish);
+
+                  // Возвращаемся на предыдущую страницу
+                  Navigator.pop(context);
                 }
               },
             ),

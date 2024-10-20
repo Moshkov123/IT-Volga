@@ -1,12 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:itvolga/model/model_dish.dart';
+import 'package:itvolga/pages/form_dish/Editform_dish_page.dart';
 import 'package:itvolga/widgets/action_button.dart';
+import '../../database/database_dish.dart';
 
 class DishItem extends StatelessWidget {
+  final Dish dish;
   final String title;
   final String img;
   final int calories;
 
-  const DishItem({super.key, required this.title, required this.img, required this.calories});
+  const DishItem(
+      {required this.dish,
+      required this.title,
+      required this.img,
+      required this.calories,
+      required id});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +90,7 @@ class DishItem extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(img), // Исправлено на AssetImage
+                  image: _getImageProvider(img),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -94,17 +105,22 @@ class DishItem extends StatelessWidget {
                   text: 'Изменить',
                   color: Color(0xFF4CAF50),
                   onPressed: () {
-                    // Действие при нажатии на кнопку "Изменить"
-                    print('Изменить нажата');
+                    // Переход к форме редактирования
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditDishPage(dish: dish),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 10), // Добавляем отступ между кнопками
                 ActionButton(
                   text: 'Удалить',
                   color: Color(0xFFF24E1E),
-                  onPressed: () {
+                  onPressed: () async {
                     // Действие при нажатии на кнопку "Удалить"
-                    print('Удалить нажата');
+                    await _deleteDish(context, dish);
                   },
                 ),
               ],
@@ -113,5 +129,34 @@ class DishItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _deleteDish(BuildContext context, Dish dish) async {
+    // Удаляем блюдо из базы данных
+    await DishDatabase().deleteDish(dish.id!);
+
+    // Удаляем изображение, если оно не является изображением по умолчанию
+    if (!dish.imageUrl.startsWith('assets/img_user/breakfast.jpg')) {
+      final file = File(dish.imageUrl);
+      if (await file.exists()) {
+        await file.delete();
+      }
+    }
+
+    // Обновляем UI
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Блюдо удалено')),
+    );
+
+    // Обновляем список блюд
+    Navigator.of(context).pop();
+  }
+}
+
+ImageProvider _getImageProvider(String imagePath) {
+  if (imagePath.startsWith('assets/')) {
+    return AssetImage(imagePath);
+  } else {
+    return FileImage(File(imagePath));
   }
 }

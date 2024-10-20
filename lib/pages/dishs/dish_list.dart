@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:itvolga/pages/dishs/dish_item.dart';
+import 'package:itvolga/model/model_dish.dart'; // Import the Dish model
 
 class DishList extends StatelessWidget {
-  final List<Map<String, dynamic>> indexList;
+  final List<Dish> indexList; // Change the type to List<Dish>
 
   const DishList({super.key, required this.indexList});
 
@@ -11,11 +12,14 @@ class DishList extends StatelessWidget {
     return ListView.builder(
       itemCount: indexList.length,
       itemBuilder: (context, index) {
-        final item = indexList[index];
+        final dish = indexList[index];
         return DishItem(
-          title: item['title'],
-          img: item['img'],
-          calories: item['calories'] ?? 0,
+          id: dish.id,
+          dish: dish, // Pass the dish object
+          title: dish.name,
+          img: dish.imageUrl,
+          calories:
+              dish.calories ?? 0, // Provide a default value if calories is null
         );
       },
     );
