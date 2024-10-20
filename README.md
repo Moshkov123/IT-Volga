@@ -48,11 +48,6 @@
     - GitHub: [Moshkov123](https://github.com/Moshkov123)
     - Email: [moshkovmisha05@gmail.com](mailto:moshkovmisha05@gmail.com)
 
-## Благодарности
-
-- Спасибо сообществу Flutter за отличную документацию и ресурсы.
-- Спасибо всем, кто внес свой вклад в этот проект.
-
 ## Контакты
 
 Если у вас есть вопросы или предложения, пожалуйста, свяжитесь со мной по адресу [moshkovmisha05@gmail.com](mailto:moshkovmisha05@gmail.com).
